@@ -1,0 +1,42 @@
+package main
+
+import "testing"
+
+func TestSolve(t *testing.T) {
+	var testcases = []struct {
+		k   int
+		a   string
+		b   string
+		out int
+	}{
+		{0, "abcdexyzw", "ijkpoxyzh", 3},
+		{2, "abcdexyzw", "ijkpoxyzh", 5},
+		{
+			2,
+			"prybsx",
+			"argbcx",
+			5,
+		},
+		{
+			5,
+			"prjybsgeijspvj",
+			"arjgbcgdipjpvj",
+			13,
+		},
+		{
+			5, "jbzchixyxcxfqjnjmiasntcprcskiivbfzxjaohtaejmusmefigtzettecygkzzlmlbflkiemsovrqkarzsgrgilxteokjemfhpqabufpliyhizsenlynufjsqnosvdkkciijvxykgjevlxcggfsnbipvephmheeqajkrbemzxlfmetnyrsmtdisrccglfvegxvepghmczavkrqxfoijhqnsihckuhvhdyzjiopzcikryykimvfzesgahkxjgxdfcyjpmvmouegrvjgjoxudpntcpyzsabsaetiaeyvdyttnfunkkpkcnxnpmhtxvnozxplhsqixkrgnpaxtvaojuitdiiixtfschpjfrgoaffolkpfbpsbdacufyqloidkgvuntnuiumvcckrvdepcscenvlaffmldeohhxibznfshehgqevbdljvurefbvvlzlpkvusdibytomjrkcitubfetvqcnlkoghxqpzcfizgzccjponmepcvtvjccfzxnxnhipsnqkqgemmqdeacnphoivlbdqzyafjckepdqokrmkhjzzjbijugnqkaaezbguyhjgtqqpgfbizhjaejllodtusjgbolkrmrynmkdvtzkfaovieccrhlzlusyxchyryzirvnrknrzvfmnilvcxzjauyajhaavprjybsgeijspvjaxugeralbjnccyhimafuiexgftzxjzzizprdmopvximdvjmoshirkvcubjyhdvutzzcmardemkzlpfayclmpatmreoycgeccgcdnbvovvvvhiffodetqthtbenpnhimbyevlqjhqtgjsioazjtelvbpyihclhqayxtgrkkbpmdqggepczzryyrmruulsjgzjzacrcdkmxmobhrcdiatullfczxlvavyrqzgndbozblozqoohtbqlqelbaipcqyykgpdpxkgdyqvhyhuogbtjqkilrmdfhljrugvbljdsqufaclhajkmhydykgxvfvayjlcdeqfhohuuqzofvuamxjgkhjupqkyzxnmxzatpumutgrhippzsjlgjbpfyofrjunpxkfvpjxkqgjsdxaotdqqtjhbmmhcqzskahjcxblcyxdhpfqbbmxuxgydnvvvhmytoshbjghpaqmexflmincpnhutgulmbckqzhilydqnietdmketagxygynpbktvetkaqoihhmlqdiytgdligdoycnnpvpiehngoxqdxqzcjobgtzbmlomptsipinsbapeeqipjievsjazayebtnbuvizgxhimngceavogbzmrmqdkqxatxnbnxnciouljshvgdapdmvvvhejvzphafkvospycdqebvrogfsgdczfrhyqvnkdvxxtsejlvcbpeeajvucllhhpfmqfctdfanbayhglfzrdptgxbnvpqoqmqlidifgmdeklvayxitjiyndhmjujsoqzmxvyjgztrfelxjqlchmgkzmkafttvxgnudkkcqnot",
+			"dxehkupglkaajohzbekahlbgcoxkopopcdevojqsaabbozmeykpgcqjsfzhxgdlscldvvsxcrgaxhjpidpcngrarjgbcgdipjpvjnhepaifsvboljiprmapgrffuasaanhmqdficmdtollxdtntzkfqetzrnjvdmayellsvaytstgmzbednrfpkbstaudtboxsphxorsfblihdgyejbomsgjuhlsvfafsdcqzyfqfaafiujdgqlpqgojubrqfkyribrvysvxbcnvxfoysrbveeeohsyzluyjumxrmikeezlxchentzkfvqhsytshyqdzczcphohymlyxlphlzrvocrqigexlbnndtshqmnbekorqobuhcgvziolqzqqkkbialvhgsgyiclmjkxunpjnovkvhzembctticfuhuavsjzfnubdyrfvfbzcxedayytivhuyfhvpcrzsxaxsosmqzhuapfgmdtlaigesrbsxicjtdguchdeucnhtuotpazemxszosafsuymxxzlzohrksdzudtjkbmekakygvmeneqfxquiolsocnhgalcexzjelmisniocdxbsbkejmvbbzayxdrszeruyzfsgoagddalceivzuqhiyfqirqtvkjkkhozlpbthvcqkzglqcgkylxsvoigvuocpkzcydirevjmzgrlixbeyqcvkuxovayjzslhxfolykklurmccrcyacxlzplxinbcotfbronigtfjthoqiuasiylpjmrkklmfeoeiqkguhenzcanqdjffztqigzpbhgisunqdsmbokpnzgextfkbtuzpxjdqtvecsglnprmbzhapkixpgkmpcjybucvgvdaxknhkoldrsrmvtxyamarhgurjridzxhkcxskloleikgcvizaavnccxujcbqmivpzypktxtkropbkfbvqnxdeygjoxhvshvgojpfozmfufzbebsfrqpjbcnostyauchzcryqyofiupgesbnnytnfxgodikltnqicxzutkflxrmloqktglsixsyrrduarsaqjmjlvlgskysycdpibmrrdchtuagvpdhqqasslmunyaizszauduvbhhvgqogxfeedfyycjpabgpxxqgplxyatcghpridotcsdfpuvmqbrqxiadusvskmoflmgyzqivkmizsrjtbkbrstcixtrvlzasnzrjvakuugzcanyffrnvbqmijvsrszmeujouvblcikrknpnmooplxmynulrsyfhbeepgjedexkqusafsmnllirimmtyknkdvacnkjgbetvlomykzeatfrmregvfpicskkaxdbcmcjkadkqqshppmtmaujsthiceyyoicbfrhodvlolelgelsrmsykqlglotlyfxbjderyzsibxlsvpbzfhxbugzvhgavbseevohbmracxoaukpjopeqvjmmcjebcmdqsnctcdonoshumbjmbosadtqpxjaedjhkxulzfyzftxu",
+			13,
+		},
+		{2, "tabriz", "torino", 4},
+		{0, "abacba", "abcaba", 3},
+		{3, "helloworld", "yellomarin", 8},
+	}
+
+	for _, c := range testcases {
+		output := Solve(c.k, c.a, c.b)
+		if c.out != output {
+			t.Errorf("Solve(%v, %v, %v)=%v, expected %v", c.k, c.a, c.b, output, c.out)
+		}
+	}
+}
