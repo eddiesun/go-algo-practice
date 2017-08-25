@@ -7,7 +7,11 @@ import (
 	"os"
 )
 
-var MOD int64 = 10e9 + 7
+//******************************************************************************
+// DID NOT SOLVE THIS PROBLEM
+//******************************************************************************
+
+var MOD = big.NewInt(10e9 + 7)
 
 func main() {
 	var r = bufio.NewReader(os.Stdin)
@@ -26,40 +30,49 @@ type Pair struct {
 }
 
 func Solve(n, m int) int64 {
-	var foundation = buildFoundation(m)
+	var fib = Fib(m)
 	var cache = make(map[Pair]int64)
-	return solve(n, m, foundation, cache)
+	return solve(n, m, fib, cache)
 }
 
-func solve(n, m int, foundation []int64, cache map[Pair]int64) int64 {
+func solve(n, m int, fib []int64, cache map[Pair]int64) int64 {
 	if m == 1 {
 		return 1
 	}
+	if value, exists := cache[Pair{n, m}]; exists {
+		return value
+	}
+
 	var firstPart big.Int
-	firstPart.Exp(big.NewInt(foundation[m]), big.NewInt(int64(n)), big.NewInt(MOD))
+	// firstPart = fib(m)^n
+	firstPart.Exp(big.NewInt(fib[m]), big.NewInt(int64(n)), MOD)
 	var secondPart big.Int
 	for i := 1; i <= m-1; i++ {
-		var tmp big.Int
-		tmp.Mul(
-			big.NewInt(solve(n, i, foundation, cache)),
-			big.NewInt(solve(n, m-i, foundation, cache)),
-		).Mod(&tmp, big.NewInt(MOD))
-		secondPart.Add(&secondPart, &tmp).Mod(&secondPart, big.NewInt(MOD))
+		var tmp1, tmp2, tmp3 big.Int
+		// tmp1 = fib(m-i)^n
+		tmp1.Exp(big.NewInt(fib[m-i]), big.NewInt(int64(n)), MOD)
+		// tmp2 = solve(n,m-i)
+		tmp2.SetInt64(solve(n, i, fib, cache))
+		// tmp3 = tmp1 * tmp 2 = fib(m-i)^n * solve(n,m-i)
+		tmp3.Mul(&tmp1, &tmp2).Mod(&tmp3, MOD)
+		// secondPart = secondPart + tmp3
+		secondPart.Add(&secondPart, &tmp3).Mod(&secondPart, MOD)
 	}
 	var result big.Int
 	result.Sub(&firstPart, &secondPart)
+
 	cache[Pair{n, m}] = result.Int64()
 	return result.Int64()
 }
 
-func buildFoundation(m int) []int64 {
+func Fib(m int) []int64 {
 	var f = make([]int64, max(4, m+1))
 	f[0] = 1
 	f[1] = 1
 	f[2] = 2
 	f[3] = 4
 	for i := 4; i <= m; i++ {
-		f[i] = f[i-1] + f[i-1] + f[i-3] + f[i-4]
+		f[i] = f[i-1] + f[i-2] + f[i-3] + f[i-4]
 	}
 	return f
 }
